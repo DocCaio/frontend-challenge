@@ -3,3 +3,7 @@
 @theme {
   --font-sans: "Roboto Mono", monospace;
 }
+
+body {
+  background-color: #140d0a;
+}
