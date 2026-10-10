@@ -1,24 +1,13 @@
-
-
-import './App.css'
+import NavBar from './components/NavBar';
 
 function App() {
-
-
   return (
     <>
       <section>
-        
- 
-
-  <h1 className="flex text-4xl font-bold  underline">
-    Hello world!
-  </h1>
-
-
-     </section>
+        <NavBar />
+      </section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
