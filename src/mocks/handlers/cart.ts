@@ -43,17 +43,17 @@ function buildCart(state: CartState): Cart {
   for (const line of state.lines) {
     const nft = db.nfts.find((n) => n.id === line.nftId)
     if (!nft) continue
-    items.push({
-      nftId: nft.id,
-      name: nft.name,
-      edition: nft.edition,
-      tokenId: `#${nft.edition.padStart(4, '0')}`,
-      imageUrl: nft.imageUrl,
-      unitPrice: nft.price,
-      lineTotal: new Decimal(nft.price).times(line.quantity).toFixed(),
-      quantity: line.quantity,
-      available: nft.available,
-    })
+items.push({
+  nftId: nft.id,
+  name: nft.name,
+  edition: String(nft.edition), 
+  tokenId: `#${String(nft.edition).padStart(4, '0')}`,
+  imageUrl: nft.imageUrl,
+  unitPrice: nft.price,
+  lineTotal: new Decimal(nft.price).times(line.quantity).toFixed(),
+  quantity: line.quantity,
+  available: nft.available,
+})
   }
 
   const subtotal = items.reduce((acc, i) => acc.plus(i.lineTotal), new Decimal(0))
