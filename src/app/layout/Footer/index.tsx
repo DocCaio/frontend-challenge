@@ -38,7 +38,7 @@ function FooterItem({ link }: { link: FooterLink }) {
 
 export default function Footer() {
   return (
-    <footer className="mx-auto max-w-7xl px-4 md:px-10">
+    <footer className="page-container">
       <div className="bg-kurio-surface">
 
         <div className="grid gap-8 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:px-12">

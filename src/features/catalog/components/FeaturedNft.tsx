@@ -1,4 +1,4 @@
-import { useFeaturedNft } from '../features/catalog/hooks'
+import { useFeaturedNft } from '../hooks'
 
 export default function FeaturedNft() {
   const { data: nft, isPending, isError } = useFeaturedNft()

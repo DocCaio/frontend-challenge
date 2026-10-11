@@ -18,6 +18,17 @@ body {
   color: var(--color-kurio-cream);
 }
 
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-7xl);
+  padding-inline: 1rem;
+
+  @media (min-width: 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
 
 .dual-range input[type="range"] {
   position: absolute;
@@ -65,4 +76,38 @@ body {
 .dual-range input[type="range"]:focus-visible::-moz-range-thumb {
   outline: 2px solid var(--color-kurio-cream);
   outline-offset: 2px;
+}
+
+
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-kurio-surface);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    rgb(245 241 235 / 0.07),
+    transparent
+  );
+  animation: shimmer 1.4s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
 }

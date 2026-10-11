@@ -47,20 +47,52 @@ export function createNfts(): Nft[] {
       price: b.price,
       originalPrice: b.originalPrice,
       currency: 'ETH',
-     
       collection: collections[(i + Math.floor(i / 9)) % collections.length],
       network: networks[(i + Math.floor(i / 4)) % networks.length],
-      available: (i % 5) + 1,
+      available: 3 + ((i * 7) % 10), // 3 a 12 edições
       version: 1,
       badge: i % 7 === 0 ? 'new' : undefined,
     }
   })
 }
 
+export interface CartLine {
+  nftId: string
+  quantity: number
+}
+
+export interface CartState {
+  lines: CartLine[]
+  couponCode: string | null
+  version: number
+}
+
+const CARTS_KEY = 'kurio.mock.carts'
+
+function loadCarts(): Record<string, CartState> {
+  try {
+    const raw = localStorage.getItem(CARTS_KEY)
+    return raw ? (JSON.parse(raw) as Record<string, CartState>) : {}
+  } catch {
+    return {}
+  }
+}
+
 export const db = {
   nfts: createNfts(),
   featuredId: FEATURED_ID,
+
+  carts: loadCarts(),
+  saveCarts() {
+    try {
+      localStorage.setItem(CARTS_KEY, JSON.stringify(this.carts))
+    } catch {
+      
+    }
+  },
   reset() {
     this.nfts = createNfts()
+    this.carts = {}
+    this.saveCarts()
   },
 }

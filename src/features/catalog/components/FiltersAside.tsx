@@ -1,6 +1,6 @@
 import { getRouteApi } from '@tanstack/react-router'
-import { useFacets } from '../features/catalog/hooks'
-import type { Network, NftListParams } from '../features/catalog/types'
+import { useFacets } from '../hooks'
+import type { Network, NftListParams } from '../types'
 import PriceFilter from './PriceFilter'
 
 const route = getRouteApi('/')

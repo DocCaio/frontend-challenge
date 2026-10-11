@@ -1,7 +1,13 @@
+import type { ReactNode } from 'react'
 import { formatEth } from '@/lib/money'
-import type { Nft } from '../features/catalog/types'
+import type { Nft } from '../types'
 
-export default function NftCard({ nft }: { nft: Nft }) {
+interface Props {
+  nft: Nft
+  action?: ReactNode 
+}
+
+export default function NftCard({ nft, action }: Props) {
   return (
     <article>
 
@@ -21,7 +27,7 @@ export default function NftCard({ nft }: { nft: Nft }) {
         />
       </div>
 
-
+  
       <div className="mt-3 space-y-1">
         <h3 className="text-sm text-kurio-cream">
           {nft.name} #{nft.edition}
@@ -35,6 +41,8 @@ export default function NftCard({ nft }: { nft: Nft }) {
             </span>
           )}
         </p>
+
+        {action && <div className="pt-1">{action}</div>}
       </div>
     </article>
   )

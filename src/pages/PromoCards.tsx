@@ -74,7 +74,7 @@ export default function PromoCards() {
   return (
     <section
       aria-label="Destaques da Kurio"
-      className="mx-auto grid max-w-7xl gap-4 px-4 pb-12 md:px-10 lg:grid-cols-2 lg:gap-6"
+      className="page-container grid gap-4 pb-12 lg:grid-cols-2 lg:gap-6"
     >
       {promos.map((promo) => (
         <article
