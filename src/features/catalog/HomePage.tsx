@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { getRouteApi } from '@tanstack/react-router'
 import Hero from '@/components/Hero'
 import JournalSection from '@/components/JournalSection'
-import FeaturedNft from '../../components/FiltersAside'
-import FiltersAside from '../../components/FiltersAside'
-import NftGrid from '../../components/NftGrid'
+import FeaturedNft from '../../components/FeaturedNft'
+import FiltersAside from  '../../components/FiltersAside'
+import NftGrid from  '../../components/NftGrid'
 import PromoCards from '../../components/PromoCards'
 
 const route = getRouteApi('/')
@@ -17,12 +17,13 @@ export default function HomePage() {
     <>
       <Hero />
 
+  
       <section
         id="explorar"
-        className="mx-auto grid max-w-7xl gap-6 px-4 pb-12 md:grid-cols-[260px_1fr] md:px-10"
+        className="mx-auto grid max-w-7xl items-start gap-6 px-4 pb-12 md:grid-cols-[240px_1fr] md:px-10 xl:grid-cols-[310px_1fr] xl:gap-12"
       >
         <div>
-       
+         
           <button
             type="button"
             aria-expanded={filtersOpen}
@@ -33,7 +34,7 @@ export default function HomePage() {
             {filtersOpen ? 'Ocultar filtros' : 'Mostrar filtros'}
           </button>
 
-          <div id="filtros" className={`${filtersOpen ? 'block' : 'hidden'} space-y-4 md:block`}>
+          <div id="filtros" className={`${filtersOpen ? 'block' : 'hidden'} space-y-6 md:block`}>
             <FiltersAside />
             <FeaturedNft />
           </div>

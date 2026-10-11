@@ -3,24 +3,26 @@ import type { Nft } from '../features/catalog/types'
 
 export default function NftCard({ nft }: { nft: Nft }) {
   return (
-    <article className="overflow-hidden rounded-xl bg-kurio-surface py-2">
-      <div className="relative">
+    <article>
+
+      <div className="relative rounded-lg bg-kurio-surface px-4 py-2">
         {nft.badge === 'new' && (
-          <span className="absolute left-2 top-2 z-10 rounded bg-kurio-accent px-2 py-0.5 text-xs font-semibold text-kurio-bg">
+          <span className="absolute left-6 top-4 z-10 rounded bg-kurio-accent px-2 py-0.5 text-xs font-semibold text-kurio-bg">
             Novo
           </span>
         )}
         <img
           src={nft.imageUrl}
           alt={`${nft.name} #${nft.edition}`}
-          width={300}
-          height={300}
+          width={226}
+          height={282}
           loading="lazy"
-          className="aspect-square w-full rounded-lg object-cover"
+          className="aspect-[4/5] w-full rounded-2xl object-cover"
         />
       </div>
 
-      <div className="space-y-1 px-3 pb-1 pt-3">
+
+      <div className="mt-3 space-y-1">
         <h3 className="text-sm text-kurio-cream">
           {nft.name} #{nft.edition}
         </h3>
