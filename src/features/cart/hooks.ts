@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Decimal from 'decimal.js'
+import { getStoredSession, useStoredSession } from '@/lib/session'
 import { getVisitorId } from '@/lib/visitor'
 import {
   addCartItem,
@@ -17,14 +18,20 @@ export const cartKeys = {
   detail: (owner: string) => [...cartKeys.all, owner] as const,
 }
 
-const currentCartKey = () => cartKeys.detail(getVisitorId())
+const currentOwner = () => getStoredSession()?.userId ?? getVisitorId()
+const currentCartKey = () => cartKeys.detail(currentOwner())
 
- 
 const cartScope = { id: 'cart' }
+
+
+function useCartKey() {
+  const session = useStoredSession()
+  return cartKeys.detail(session?.userId ?? getVisitorId())
+}
 
 export function useCart() {
   return useQuery({
-    queryKey: currentCartKey(),
+    queryKey: useCartKey(),
     queryFn: ({ signal }) => fetchCart(signal),
     staleTime: 15_000,
   })
@@ -33,7 +40,7 @@ export function useCart() {
 
 export function useCartCount() {
   const { data } = useQuery({
-    queryKey: currentCartKey(),
+    queryKey: useCartKey(),
     queryFn: ({ signal }) => fetchCart(signal),
     staleTime: 15_000,
     select: (cart) => cart.itemCount,
@@ -62,17 +69,19 @@ export function useUpdateCartItem() {
       const previous = qc.getQueryData<Cart>(key)
 
       if (previous) {
+        const items = previous.items.map((item) =>
+          item.nftId === nftId
+            ? {
+                ...item,
+                quantity,
+                lineTotal: new Decimal(item.unitPrice).times(quantity).toFixed(),
+              }
+            : item,
+        )
         qc.setQueryData<Cart>(key, {
           ...previous,
-          items: previous.items.map((item) =>
-            item.nftId === nftId
-              ? {
-                  ...item,
-                  quantity,
-                  lineTotal: new Decimal(item.unitPrice).times(quantity).toFixed(),
-                }
-              : item,
-          ),
+          items,
+          itemCount: items.reduce((acc, it) => acc + it.quantity, 0),
         })
       }
       return { previous }
@@ -82,7 +91,7 @@ export function useUpdateCartItem() {
       if (context?.previous) qc.setQueryData(key, context.previous)
       qc.invalidateQueries({ queryKey: key })
     },
-    
+
     onSuccess: (cart) => qc.setQueryData(currentCartKey(), cart),
   })
 }

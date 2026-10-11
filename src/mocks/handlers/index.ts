@@ -1,4 +1,5 @@
+import { authHandlers } from '../auth'
 import { cartHandlers } from './cart'
 import { catalogHandlers } from './catalog'
 
-export const handlers = [...catalogHandlers, ...cartHandlers]
+export const handlers = [...catalogHandlers, ...authHandlers, ...cartHandlers]
