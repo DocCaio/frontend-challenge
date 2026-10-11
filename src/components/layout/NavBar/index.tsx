@@ -5,11 +5,10 @@ interface NavItem {
   label: string;
   href: string;
   to?: "/";
-  active?: boolean;
 }
 
 const links: NavItem[] = [
-  { label: "Início", href: "/", to: "/", active: true },
+  { label: "Início", href: "/", to: "/" },
   { label: "Mercado", href: "#" },
   { label: "Criadores", href: "#" },
   { label: "Aprenda", href: "#" },
@@ -73,7 +72,7 @@ const SlidersIcon = () => (
   </svg>
 );
 
-// Link do router quando existe rota (sem recarregar a página); <a> nos demais
+
 function NavAnchor({
   item,
   className,
@@ -99,40 +98,54 @@ function NavAnchor({
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const [activeLabel, setActiveLabel] = useState("Início");
+
+  const handleSelect = (label: string) => {
+    setActiveLabel(label);
+    setOpen(false);
+  };
 
   return (
-    <header className="relative w-full bg-kurio-bg">
-      <nav className="page-container flex items-center justify-between py-4">
+    <header className="relative w-full border-b border-[#291B15] bg-kurio-bg">
+      <nav className="page-container flex items-stretch justify-between md:py-0">
         <Link
           to="/"
-          className="hidden text-sm font-bold tracking-widest uppercase text-[#F5F1EB] md:block"
+          className="hidden items-center text-sm font-bold tracking-widest uppercase text-[#F5F1EB] md:flex"
+          onClick={() => setActiveLabel("Início")}
         >
           KURIO
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
-          {links.map((item) => (
-            <li key={item.label} className="relative py-1">
-              <NavAnchor
-                item={item}
-                className={`text-sm tracking-wide transition-colors ${
-                  item.active
-                    ? "font-semibold text-[#D28A4C]"
-                    : "text-[#C2B5A5] hover:text-[#F5F1EB]"
-                }`}
-              />
-              {item.active && (
-                <span className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#D28A4C]" />
-              )}
-            </li>
-          ))}
+        
+        <ul className="hidden items-stretch gap-8 md:flex">
+          {links.map((item) => {
+            const isActive = item.label === activeLabel;
+            return (
+              <li key={item.label} className="relative flex items-center py-4">
+                <NavAnchor
+                  item={item}
+                  onClick={() => handleSelect(item.label)}
+                  className={`text-sm tracking-wide transition-colors ${
+                    isActive
+                      ? "font-semibold text-[#D28A4C]"
+                      : "text-[#C2B5A5] hover:text-[#D28A4C]"
+                  }`}
+                />
+                <span
+                  className={`absolute -bottom-px left-0 h-0.5 w-full rounded-full bg-[#D28A4C] transition-opacity ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden items-center gap-6 md:flex">
-          <button type="button" aria-label="Buscar" className="text-[#C2B5A5] hover:text-[#F5F1EB]">
+          <button type="button" aria-label="Buscar" className="text-[#C2B5A5] transition-colors hover:text-[#D28A4C]">
             <SearchIcon />
           </button>
-          <button type="button" aria-label="Carrinho" className="text-[#C2B5A5] hover:text-[#F5F1EB]">
+          <button type="button" aria-label="Carrinho" className="text-[#C2B5A5] transition-colors hover:text-[#D28A4C]">
             <CartIcon />
           </button>
           <button
@@ -144,7 +157,7 @@ const NavBar = () => {
           </button>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-3 md:hidden">
+        <div className="flex w-full items-center justify-between gap-3 py-4 md:hidden">
           <div className="flex flex-1 items-center gap-2 rounded-xl bg-[#1C120E] px-3 py-2.5 text-[#8E7866]">
             <SearchIcon size={16} />
             <input
@@ -174,9 +187,11 @@ const NavBar = () => {
               <li key={item.label}>
                 <NavAnchor
                   item={item}
-                  onClick={() => setOpen(false)}
-                  className={`block text-base ${
-                    item.active ? "font-bold text-[#D28A4C]" : "text-[#C2B5A5]"
+                  onClick={() => handleSelect(item.label)}
+                  className={`block text-base transition-colors ${
+                    item.label === activeLabel
+                      ? "font-bold text-[#D28A4C]"
+                      : "text-[#C2B5A5] hover:text-[#D28A4C]"
                   }`}
                 />
               </li>

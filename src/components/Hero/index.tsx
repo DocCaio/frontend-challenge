@@ -1,6 +1,25 @@
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/effect-fade";
+
 import emeraldApe from "@/assets/nfts/emerald-ape.png";
 
+import goldenApe from "@/assets/nfts/golden-beat.png";
+import neonApe from "@/assets/nfts/neon-vessel.png";
+
+const slides = [
+  { src: emeraldApe, alt: "Emerald Ape NFT" },
+  { src: goldenApe, alt: "Golden Ape NFT" },
+  { src: neonApe, alt: "Neon Ape NFT" },
+];
+
 const Hero = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+
   return (
     <section aria-labelledby="hero-titulo" className="w-full py-6 md:py-12">
       <div className="page-container">
@@ -50,22 +69,48 @@ const Hero = () => {
 
             <div className="relative flex shrink-0 justify-center md:justify-end">
               <div className="relative overflow-hidden rounded-3xl border border-[#3D261C] shadow-2xl">
-                <img
-                  src={emeraldApe}
-                  alt="Emerald Ape NFT"
-                  width={420}
-                  height={420}
-                  fetchPriority="high"
-                  className="h-72 w-72 object-cover sm:h-96 sm:w-96 md:h-[420px] md:w-[420px]"
-                />
+                <Swiper
+                  modules={[Autoplay, EffectFade]}
+                  effect="fade"
+                  fadeEffect={{ crossFade: true }}
+                  loop
+                  speed={800}
+                  autoplay={{ delay: 3500, disableOnInteraction: false }}
+                  onSwiper={setSwiper}
+                  onSlideChange={(s) => setActiveIndex(s.realIndex)}
+                  className="h-72 w-72 sm:h-96 sm:w-96 md:h-[420px] md:w-[420px]"
+                >
+                  {slides.map((slide, i) => (
+                    <SwiperSlide key={slide.alt}>
+                      <img
+                        src={slide.src}
+                        alt={slide.alt}
+                        width={420}
+                        height={420}
+                        fetchPriority={i === 0 ? "high" : "auto"}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        className="h-full w-full object-cover"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
             </div>
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-2 md:mt-12" aria-hidden="true">
-            <span className="h-2 w-2 rounded-full bg-[#D28A4C]/40" />
-            <span className="h-2 w-2 rounded-full bg-[#D28A4C]" />
-            <span className="h-2 w-2 rounded-full bg-[#D28A4C]/40" />
+          <div className="mt-8 flex items-center justify-center gap-2 md:mt-12">
+            {slides.map((slide, i) => (
+              <button
+                key={slide.alt}
+                type="button"
+                aria-label={`Ir para o slide ${i + 1}`}
+                aria-current={i === activeIndex}
+                onClick={() => swiper?.slideToLoop(i)}
+                className={`h-2 w-2 rounded-full bg-[#D28A4C] transition-opacity ${
+                  i === activeIndex ? "opacity-100" : "opacity-40 hover:opacity-70"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
