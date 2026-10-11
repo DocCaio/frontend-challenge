@@ -3,15 +3,15 @@ import { z } from 'zod'
 import RootLayout from '@/components/RootLayout'
 import HomePage from '@/features/catalog/HomePage'
 
-// filtros vivem na URL (sobrevivem a refresh e histórico)
+
 const searchSchema = z.object({
   q: z.string().optional().catch(undefined),
   collection: z.string().optional().catch(undefined),
   network: z.enum(['Ethereum', 'Polygon', 'Solana']).optional().catch(undefined),
   minPrice: z.string().optional().catch(undefined),
   maxPrice: z.string().optional().catch(undefined),
-  sort: z.enum(['recent', 'price_asc', 'price_desc']).catch('recent'),
-  page: z.coerce.number().int().min(1).catch(1),
+  sort: z.enum(['recent', 'price_asc', 'price_desc']).default('recent').catch('recent'),
+  page: z.coerce.number().int().min(1).default(1).catch(1),
 })
 
 const rootRoute = createRootRoute({

@@ -1,5 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
-import NavBar from './layout/NavBar'
+import Footer from '../components/Footer'
+import NavBar from '../components/layout/NavBar'
 
 export default function RootLayout() {
   return (
@@ -8,6 +9,7 @@ export default function RootLayout() {
       <main>
         <Outlet />
       </main>
+      <Footer />
     </div>
   )
 }

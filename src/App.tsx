@@ -1,3 +1,4 @@
+
 import Hero from './components/Hero';
 import NavBar from './components/layout/NavBar';
 
@@ -7,6 +8,7 @@ function App() {
       <section>
         <NavBar />
         <Hero/>
+       
       </section>
     </>
   );
