@@ -1,9 +1,67 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Roboto Mono", monospace;
+  --font-sans: "Roboto Mono Variable", "Roboto Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-kurio-bg: #140d0a;
+  --color-kurio-surface: #241612;
+  --color-kurio-cream: #f5f1eb;
+  --color-kurio-gold: #b39463;
+  --color-kurio-sand: #cfb28c;
+  --color-kurio-accent: #d28a4c;
+  --color-kurio-accent-hover: #e89b55;
 }
 
 body {
-  background-color: #140d0a;
+  background-color: var(--color-kurio-bg);
+  color: var(--color-kurio-cream);
+}
+
+
+.dual-range input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  pointer-events: none; 
+}
+
+.dual-range input[type="range"]::-webkit-slider-runnable-track {
+  background: transparent;
+}
+.dual-range input[type="range"]::-moz-range-track {
+  background: transparent;
+}
+
+.dual-range input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-kurio-bg);
+  background: var(--color-kurio-accent);
+  cursor: pointer;
+}
+.dual-range input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-kurio-bg);
+  background: var(--color-kurio-accent);
+  cursor: pointer;
+}
+
+
+.dual-range input[type="range"]:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--color-kurio-cream);
+  outline-offset: 2px;
+}
+.dual-range input[type="range"]:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--color-kurio-cream);
+  outline-offset: 2px;
 }

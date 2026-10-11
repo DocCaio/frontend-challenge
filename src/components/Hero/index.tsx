@@ -1,3 +1,5 @@
+import emeraldApe from '@/assets/nfts/emerald-ape.png'
+
 const Hero = () => {
   return (
     <main className="w-full px-4 py-6 md:px-10 md:py-12">
@@ -73,16 +75,13 @@ const Hero = () => {
               <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
             </svg>
 
-            <img
-              src="https://imgur.com/a/u82FNtK"
-              alt="Arte digital da coleção Kurio"
-              className="
-                h-40 w-full min-w-0
-                rounded-2xl object-cover
-                sm:h-64
-                md:h-[420px]
-              "
-            />
+          <img
+  src={emeraldApe}
+  alt="Arte digital da coleção Kurio"
+  width={420}
+  height={420}
+  className="h-40 w-full min-w-0 rounded-2xl object-cover sm:h-64 md:h-[420px]"
+/>
 
           </div>
         </div>
