@@ -1,4 +1,4 @@
-import { useId, useState, type FormEvent, type ReactNode } from 'react'
+import { useId, useState, type SubmitEvent, type ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import { getApiError } from '@/lib/http'
 import { formatEthExact } from '@/lib/money'
@@ -16,7 +16,6 @@ function Row({ label, children }: { label: string; children: ReactNode }) {
     </div>
   )
 }
-
 export default function CartSummary({ quote }: { quote: Quote }) {
   const id = useId()
   const [code, setCode] = useState('')
@@ -25,7 +24,7 @@ export default function CartSummary({ quote }: { quote: Quote }) {
 
   const couponError = apply.isError ? getApiError(apply.error).message : null
 
-  const handleApply = (e: FormEvent) => {
+  const handleApply = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     apply.mutate(code, { onSuccess: () => setCode('') })
   }
