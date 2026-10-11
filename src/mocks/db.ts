@@ -4,7 +4,7 @@ import sageNomad from '@/assets/nfts/sage-nomad.png'
 import neonVessel from '@/assets/nfts/neon-vessel.png'
 import goldenBeat from '@/assets/nfts/golden-beat.png'
 
-
+// 9 NFTs base = 1 página completa (PAGE_SIZE = 9), igual ao Figma
 const base = [
   { name: 'Emerald Ape', price: '1.19', image: emeraldApe },
   { name: 'Sage Nomad', price: '1.69', image: sageNomad },
@@ -31,10 +31,10 @@ export const collections = [
 
 export const networks: Network[] = ['Ethereum', 'Polygon', 'Solana']
 
-
+// Cosmic Bloom #004 (base[3] => edição 004)
 const FEATURED_ID = 'nft-004'
 
-
+// determinístico: mesma lista sempre (requisito de fixtures)
 export function createNfts(): Nft[] {
   return Array.from({ length: 48 }, (_, i) => {
     const b = base[i % base.length]
@@ -47,20 +47,52 @@ export function createNfts(): Nft[] {
       price: b.price,
       originalPrice: b.originalPrice,
       currency: 'ETH',
-     
       collection: collections[(i + Math.floor(i / 9)) % collections.length],
       network: networks[(i + Math.floor(i / 4)) % networks.length],
-      available: (i % 5) + 1,
+      available: 3 + ((i * 7) % 10), // 3 a 12 edições
       version: 1,
       badge: i % 7 === 0 ? 'new' : undefined,
     }
   })
 }
 
+export interface CartLine {
+  nftId: string
+  quantity: number
+}
+
+export interface CartState {
+  lines: CartLine[]
+  couponCode: string | null
+  version: number
+}
+
+const CARTS_KEY = 'kurio.mock.carts'
+
+function loadCarts(): Record<string, CartState> {
+  try {
+    const raw = localStorage.getItem(CARTS_KEY)
+    return raw ? (JSON.parse(raw) as Record<string, CartState>) : {}
+  } catch {
+    return {}
+  }
+}
+
 export const db = {
   nfts: createNfts(),
   featuredId: FEATURED_ID,
+  // carrinhos por dono (id do visitante; depois, id do usuário)
+  carts: loadCarts(),
+  saveCarts() {
+    try {
+      localStorage.setItem(CARTS_KEY, JSON.stringify(this.carts))
+    } catch {
+      
+    }
+  },
   reset() {
     this.nfts = createNfts()
+    this.carts = {}
+    this.saveCarts()
   },
 }

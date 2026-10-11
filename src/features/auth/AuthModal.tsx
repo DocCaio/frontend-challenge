@@ -1,4 +1,4 @@
-import { EyeIcon, GoogleIcon, FacebookIcon } from "./icons";
+import { EyeIcon, GoogleIcon, FacebookIcon } from "../../app/layout/NavBar/icons";
 
 interface AuthModalProps {
   isOpen: boolean;

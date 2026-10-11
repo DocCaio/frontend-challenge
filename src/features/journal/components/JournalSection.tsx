@@ -1,4 +1,4 @@
-import { articles } from '../features/journal/content'
+import { articles } from '../content'
 
 const formatDay = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('pt-BR', {

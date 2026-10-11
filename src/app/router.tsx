@@ -1,22 +1,22 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router'
 import { z } from 'zod'
-import RootLayout from '@/components/RootLayout'
-import HomePage from '@/features/catalog/HomePage'
-
+import RootLayout from '@/app/layout/RootLayout'
+import CartPage from '@/pages/cart/CartPage'
+import HomePage from '@/pages/HomePage'
 
 const searchSchema = z.object({
-  q: z.string().optional().catch(undefined),
-  collection: z.string().optional().catch(undefined),
-  network: z.enum(['Ethereum', 'Polygon', 'Solana']).optional().catch(undefined),
-  minPrice: z.string().optional().catch(undefined),
-  maxPrice: z.string().optional().catch(undefined),
-  sort: z.enum(['recent', 'price_asc', 'price_desc']).default('recent').catch('recent'),
-  page: z.coerce.number().int().min(1).default(1).catch(1),
+  q: z.string().optional(),
+  collection: z.string().optional(),
+  network: z.enum(['Ethereum', 'Polygon', 'Solana']).optional(),
+  minPrice: z.string().optional(),
+  maxPrice: z.string().optional(),
+  sort: z.enum(['recent', 'price_asc', 'price_desc']).default('recent'),
+  page: z.coerce.number().int().min(1).default(1),
 })
 
 const rootRoute = createRootRoute({
   component: RootLayout,
-  notFoundComponent: () => <p className="p-10">Página não encontrada.</p>,
+  notFoundComponent: () => <p className="page-container py-10">Página não encontrada.</p>,
 })
 
 const indexRoute = createRoute({
@@ -26,7 +26,13 @@ const indexRoute = createRoute({
   component: HomePage,
 })
 
-const routeTree = rootRoute.addChildren([indexRoute])
+const cartRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/carrinho',
+  component: CartPage,
+})
+
+const routeTree = rootRoute.addChildren([indexRoute, cartRoute])
 
 export const router = createRouter({ routeTree })
 

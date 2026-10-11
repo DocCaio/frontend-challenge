@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SearchIcon, CartIcon, LoginIcon, SlidersIcon } from "./icons";
-import { AuthModal } from "./AuthModal";
+import { AuthModal } from "../../../features/auth/AuthModal";
+import CartButton from "./CartButton";
 
 interface NavItem {
   label: string;
@@ -91,9 +92,7 @@ const NavBar = () => {
           <button type="button" aria-label="Buscar" className="cursor-pointer text-[#C2B5A5] transition-colors hover:text-[#D28A4C]">
             <SearchIcon />
           </button>
-          <button type="button" aria-label="Carrinho" className="cursor-pointer text-[#C2B5A5] transition-colors hover:text-[#D28A4C]">
-            <CartIcon />
-          </button>
+          <CartButton />
           <button
             type="button"
             onClick={() => {
