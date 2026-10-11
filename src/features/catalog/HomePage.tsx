@@ -20,7 +20,7 @@ export default function HomePage() {
   
       <section
         id="explorar"
-        className="mx-auto grid max-w-7xl items-start gap-6 px-4 pb-12 md:grid-cols-[240px_1fr] md:px-10 xl:grid-cols-[310px_1fr] xl:gap-12"
+        className="page-container grid items-start gap-6 pb-12 md:grid-cols-[240px_1fr] xl:grid-cols-[310px_1fr] xl:gap-12"
       >
         <div>
          

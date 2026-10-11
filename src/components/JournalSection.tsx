@@ -11,7 +11,7 @@ export default function JournalSection() {
   return (
     <section
       aria-labelledby="diario-titulo"
-      className="mx-auto max-w-7xl px-4 pb-12 md:px-10"
+      className="page-container pb-12"
     >
       <header className="mb-8 text-center">
         <h2 id="diario-titulo" className="text-2xl font-bold text-kurio-cream md:text-3xl">

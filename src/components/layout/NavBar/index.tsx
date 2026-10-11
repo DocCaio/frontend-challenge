@@ -1,9 +1,19 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
-const links = ["Início", "Mercado", "Criadores", "Aprenda"];
+interface NavItem {
+  label: string;
+  href: string;
+  to?: "/";
+  active?: boolean;
+}
 
-const linkClass =
-  "text-[#f5f1eb] hover:text-[#e89b55] underline-offset-4 hover:underline decoration-[#e89b55] transition-colors";
+const links: NavItem[] = [
+  { label: "Início", href: "/", to: "/", active: true },
+  { label: "Mercado", href: "#" },
+  { label: "Criadores", href: "#" },
+  { label: "Aprenda", href: "#" },
+];
 
 const SearchIcon = ({ size = 18 }: { size?: number }) => (
   <svg
@@ -19,17 +29,21 @@ const SearchIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 const CartIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    fill="currentColor"
-    viewBox="0 0 16 16"
-    aria-hidden="true"
-  >
-    <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
-    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-  </svg>
+  <div className="relative inline-flex items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="18"
+      height="18"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+    >
+      <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+    </svg>
+    <span className="absolute -top-1 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#d28a4c] text-[9px] font-bold text-black">
+      0
+    </span>
+  </div>
 );
 
 const LoginIcon = () => (
@@ -41,144 +55,133 @@ const LoginIcon = () => (
     viewBox="0 0 16 16"
     aria-hidden="true"
   >
-    <path
-      fillRule="evenodd"
-      d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"
-    />
-    <path
-      fillRule="evenodd"
-      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"
-    />
+    <path fillRule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+    <path fillRule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
   </svg>
 );
 
 const SlidersIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width={18}
+    height={18}
     fill="currentColor"
     viewBox="0 0 16 16"
     aria-hidden="true"
   >
-    <path
-      fillRule="evenodd"
-      d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"
-    />
+    <path fillRule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
   </svg>
 );
+
+// Link do router quando existe rota (sem recarregar a página); <a> nos demais
+function NavAnchor({
+  item,
+  className,
+  onClick,
+}: {
+  item: NavItem;
+  className: string;
+  onClick?: () => void;
+}) {
+  if (item.to) {
+    return (
+      <Link to={item.to} className={className} onClick={onClick}>
+        {item.label}
+      </Link>
+    );
+  }
+  return (
+    <a href={item.href} className={className} onClick={onClick}>
+      {item.label}
+    </a>
+  );
+}
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative w-full">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 md:px-6">
-        
-        <a href="/" className={`hidden text-xl font-bold md:inline-block ${linkClass}`}>
-          Kurio
-        </a>
+    <header className="relative w-full bg-kurio-bg">
+      <nav className="page-container flex items-center justify-between py-4">
+        <Link
+          to="/"
+          className="hidden text-sm font-bold tracking-widest uppercase text-[#F5F1EB] md:block"
+        >
+          KURIO
+        </Link>
 
-    
         <ul className="hidden items-center gap-8 md:flex">
-          {links.map((label) => (
-            <li key={label}>
-              <a href="#" className={linkClass}>
-                {label}
-              </a>
+          {links.map((item) => (
+            <li key={item.label} className="relative py-1">
+              <NavAnchor
+                item={item}
+                className={`text-sm tracking-wide transition-colors ${
+                  item.active
+                    ? "font-semibold text-[#D28A4C]"
+                    : "text-[#C2B5A5] hover:text-[#F5F1EB]"
+                }`}
+              />
+              {item.active && (
+                <span className="absolute bottom-0 left-0 h-[2px] w-full rounded-full bg-[#D28A4C]" />
+              )}
             </li>
           ))}
         </ul>
 
-    
-        <div className="hidden items-center gap-4 md:flex">
-          <button
-            type="button"
-            aria-label="Buscar"
-            className="cursor-pointer text-[#f5f1eb] transition-colors hover:text-[#e89b55]"
-          >
+        <div className="hidden items-center gap-6 md:flex">
+          <button type="button" aria-label="Buscar" className="text-[#C2B5A5] hover:text-[#F5F1EB]">
             <SearchIcon />
           </button>
-
-          <button
-            type="button"
-            aria-label="Carrinho"
-            className="cursor-pointer text-[#f5f1eb] transition-colors hover:text-[#e89b55]"
-          >
+          <button type="button" aria-label="Carrinho" className="text-[#C2B5A5] hover:text-[#F5F1EB]">
             <CartIcon />
           </button>
-
           <button
             type="button"
-            className="flex cursor-pointer items-center gap-2 rounded-lg bg-[#d28a4c] px-4 py-2 font-medium text-[#f5f1eb] transition-colors hover:bg-[#e89b55]"
+            className="flex items-center gap-2 rounded-lg bg-[#D28A4C] px-4 py-1.5 text-sm font-semibold text-[#110A07] transition-all hover:bg-[#c27a3c]"
           >
             <LoginIcon />
             Entrar
           </button>
         </div>
 
-      
         <div className="flex w-full items-center justify-between gap-3 md:hidden">
-          <label className="flex w-full max-w-xs items-center gap-2 rounded-lg bg-[#241612] px-3 py-2 text-[#B39463] focus-within:ring-1 focus-within:ring-[#B39463]">
+          <div className="flex flex-1 items-center gap-2 rounded-xl bg-[#1C120E] px-3 py-2.5 text-[#8E7866]">
             <SearchIcon size={16} />
             <input
               type="text"
               placeholder="Explorar coleções"
               aria-label="Explorar coleções"
-              className="w-full bg-transparent text-sm text-[#B39463] placeholder:text-[#B39463] focus:outline-none"
+              className="w-full bg-transparent text-xs text-[#F5F1EB] placeholder-[#8E7866] focus:outline-none"
             />
-          </label>
+          </div>
 
           <button
             type="button"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
             onClick={() => setOpen((prev) => !prev)}
-            className="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-lg bg-[#D28A4C] text-[#140D0A] transition-opacity hover:opacity-90"
+            aria-label="Filtros e menu"
+            aria-expanded={open}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D28A4C] text-[#110A07] transition-opacity hover:opacity-90"
           >
             <SlidersIcon />
           </button>
         </div>
       </nav>
 
-    
       {open && (
-        <div
-          id="mobile-menu"
-          className="absolute left-0 right-0 top-full z-50 border-t border-[#B39463]/20 bg-[#140D0A] px-6 py-4 md:hidden"
-        >
+        <div className="absolute left-0 right-0 top-full z-50 border-t border-[#291B15] bg-kurio-bg px-6 py-6 md:hidden">
           <ul className="flex flex-col gap-4">
-            {links.map((label) => (
-              <li key={label}>
-                <a
-                  href="#"
-                  className={`block ${linkClass}`}
+            {links.map((item) => (
+              <li key={item.label}>
+                <NavAnchor
+                  item={item}
                   onClick={() => setOpen(false)}
-                >
-                  {label}
-                </a>
+                  className={`block text-base ${
+                    item.active ? "font-bold text-[#D28A4C]" : "text-[#C2B5A5]"
+                  }`}
+                />
               </li>
             ))}
           </ul>
-
-          <div className="mt-5 flex items-center gap-3">
-            <button
-              type="button"
-              aria-label="Carrinho"
-              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg bg-[#241612] text-[#f5f1eb] transition-colors hover:text-[#e89b55]"
-            >
-              <CartIcon />
-            </button>
-
-            <button
-              type="button"
-              className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#d28a4c] px-4 py-2 font-medium text-[#f5f1eb] transition-colors hover:bg-[#e89b55]"
-            >
-              <LoginIcon />
-              Entrar
-            </button>
-          </div>
         </div>
       )}
     </header>

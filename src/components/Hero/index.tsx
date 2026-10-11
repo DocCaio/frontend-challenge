@@ -1,92 +1,75 @@
-import emeraldApe from '@/assets/nfts/emerald-ape.png'
+import emeraldApe from "@/assets/nfts/emerald-ape.png";
 
 const Hero = () => {
   return (
-    <main className="w-full px-4 py-6 md:px-10 md:py-12">
-      <div
-        className="
-          mx-auto max-w-7xl
-          overflow-hidden rounded-2xl
-          bg-gradient-to-br from-orange-500 to-amber-950
-          p-4 sm:p-6
-          md:bg-none md:p-0
-        "
-      >       
-        <div className="flex flex-row items-center gap-3 sm:gap-6 md:gap-10">
+    <section aria-labelledby="hero-titulo" className="w-full py-6 md:py-12">
+      <div className="page-container">
+        <div className="relative overflow-hidden rounded-3xl bg-linear-to-r from-[#2F1B12] via-[#21130D] to-[#160D08] p-6 sm:p-10 md:bg-none md:p-0">
+          <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-12">
+            <div className="flex-1 space-y-4 md:space-y-6">
+              <span className="text-xs tracking-wider text-[#A3856C] uppercase md:text-sm">
+                Bem-vindo à Kurio
+              </span>
 
-      
-          <div className="min-w-0 flex-1 space-y-3 md:space-y-6">
-
-            <span className="text-xs font-medium uppercase tracking-widest text-orange-200 sm:text-sm">
-              Bem-vindo à Kurio
-            </span>
-
-            <h1 className="text-xl font-bold leading-tight text-[#F5F1EB] sm:text-3xl md:text-5xl lg:text-6xl">
-              Seja Dono do Futuro da Arte Digital
-            </h1>
-
-            <p className="text-xs leading-relaxed text-[#CFB28C] sm:text-sm md:text-lg">
-              Descubra NFTs selecionados de criadores emergentes e
-              consagrados. Colecione arte digital rara, apoie artistas
-              e tenha uma parte da cultura da internet.
-            </p>
-
-            <a
-              href="#explorar"
-              className="
-                inline-flex items-center justify-center gap-2
-                rounded-xl bg-[#D28A4C]
-                px-3 py-2 text-xs font-semibold text-white
-                transition-colors hover:bg-[#B97135]
-                sm:px-5 sm:py-3 sm:text-sm
-              "
-            >
-              <span>Explorar</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                viewBox="0 0 16 16"
-                className="block h-4 w-4 shrink-0 md:hidden"
-                aria-hidden="true"
+              <h1
+                id="hero-titulo"
+                className="text-2xl font-black uppercase leading-tight tracking-wide text-[#F5F1EB] sm:text-4xl md:text-5xl lg:text-6xl"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+                SEJA DONO DO FUTURO <br className="hidden sm:inline" />
+                DA ARTE DIGITAL
+              </h1>
+
+              <p className="max-w-xl text-xs leading-relaxed text-[#A3856C] sm:text-sm md:text-base">
+                Descubra NFTs selecionados de criadores emergentes e consagrados.
+                Colecione arte digital rara, apoie artistas e tenha uma parte da
+                cultura da internet.
+              </p>
+
+              <div className="pt-2">
+                <a
+                  href="#explorar"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#D28A4C] px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#110A07] transition-all hover:bg-[#c27a3c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kurio-cream"
+                >
+                  <span>EXPLORAR</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div className="relative flex shrink-0 justify-center md:justify-end">
+              <div className="relative overflow-hidden rounded-3xl border border-[#3D261C] shadow-2xl">
+                <img
+                  src={emeraldApe}
+                  alt="Emerald Ape NFT"
+                  width={420}
+                  height={420}
+                  fetchPriority="high"
+                  className="h-72 w-72 object-cover sm:h-96 sm:w-96 md:h-[420px] md:w-[420px]"
                 />
-              </svg>
-            </a>
+              </div>
+            </div>
           </div>
 
-         
-          <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="#D28A4C"
-              viewBox="0 0 16 16"
-              className="h-4 w-4 shrink-0 sm:h-6 sm:w-6"
-              aria-hidden="true"
-            >
-              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
-            </svg>
-
-          <img
-  src={emeraldApe}
-  alt="Arte digital da coleção Kurio"
-  width={420}
-  height={420}
-  className="h-40 w-full min-w-0 rounded-2xl object-cover sm:h-64 md:h-[420px]"
-/>
-
+          <div className="mt-8 flex items-center justify-center gap-2 md:mt-12" aria-hidden="true">
+            <span className="h-2 w-2 rounded-full bg-[#D28A4C]/40" />
+            <span className="h-2 w-2 rounded-full bg-[#D28A4C]" />
+            <span className="h-2 w-2 rounded-full bg-[#D28A4C]/40" />
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 };
 

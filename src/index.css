@@ -18,6 +18,17 @@ body {
   color: var(--color-kurio-cream);
 }
 
+@utility page-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: var(--container-7xl);
+  padding-inline: 1rem;
+
+  @media (min-width: 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
 
 .dual-range input[type="range"] {
   position: absolute;
