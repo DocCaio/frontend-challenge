@@ -76,7 +76,7 @@ Implementação do desafio frontend **NFT Marketplace** (React + TypeScript), ba
 Pré-requisito: **Node.js 20 ou superior**.
 
 ```bash
-git clone <URL-DO-REPOSITORIO>
+git clone [REPOSITORIO](https://github.com/DocCaio/frontend-challenge)>
 cd frontend-challenge
 npm ci
 ```
