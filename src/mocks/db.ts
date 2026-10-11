@@ -4,7 +4,7 @@ import sageNomad from '@/assets/nfts/sage-nomad.png'
 import neonVessel from '@/assets/nfts/neon-vessel.png'
 import goldenBeat from '@/assets/nfts/golden-beat.png'
 
-// 9 NFTs base = 1 página completa (PAGE_SIZE = 9), igual ao Figma
+
 const base = [
   { name: 'Emerald Ape', price: '1.19', image: emeraldApe },
   { name: 'Sage Nomad', price: '1.69', image: sageNomad },
@@ -31,10 +31,10 @@ export const collections = [
 
 export const networks: Network[] = ['Ethereum', 'Polygon', 'Solana']
 
-// Cosmic Bloom #004 (base[3] => edição 004)
+
 const FEATURED_ID = 'nft-004'
 
-// determinístico: mesma lista sempre (requisito de fixtures)
+
 export function createNfts(): Nft[] {
   return Array.from({ length: 48 }, (_, i) => {
     const b = base[i % base.length]
@@ -81,7 +81,7 @@ function loadCarts(): Record<string, CartState> {
 export const db = {
   nfts: createNfts(),
   featuredId: FEATURED_ID,
-  // carrinhos por dono (id do visitante; depois, id do usuário)
+
   carts: loadCarts(),
   saveCarts() {
     try {
