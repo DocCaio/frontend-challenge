@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { SearchIcon, CartIcon, LoginIcon, SlidersIcon } from "./icons";
+import { SearchIcon,  LoginIcon, SlidersIcon } from "./icons";
 import { AuthModal } from "../../../features/auth/AuthModal";
 import CartButton from "./CartButton";
 

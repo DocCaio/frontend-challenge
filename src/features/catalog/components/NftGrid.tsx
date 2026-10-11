@@ -1,13 +1,13 @@
 import type { ReactNode } from 'react'
 import { useNfts } from '../hooks'
-import type { NftListParams } from '../types'
+import type { Nft, NftListParams } from '../types' 
 import NftCard from './NftCard'
 
 const gridClass = 'grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3 xl:gap-x-8'
 
 interface NftGridProps {
   params: NftListParams
-  renderAction?: (nft: any) => ReactNode
+  renderAction?: (nft: Nft) => ReactNode 
 }
 
 const Skeleton = () => (
