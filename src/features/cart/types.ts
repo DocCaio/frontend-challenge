@@ -30,3 +30,20 @@ export interface Cart {
   version: number
   quote: Quote
 }
+
+export interface Nft {
+  id: string
+  name: string
+  edition: string
+  imageUrl: string
+  price: string
+  originalPrice?: string
+  badge?: 'new' | string
+}
+
+export interface NftListParams {
+  page?: number
+  limit?: number
+  category?: string
+  search?: string
+}

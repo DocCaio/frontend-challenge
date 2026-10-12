@@ -2,14 +2,29 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Decimal from 'decimal.js'
 import { getVisitorId } from '@/lib/visitor'
 import {
-  addCartItem,
-  applyCoupon,
+  fetchNfts,
   fetchCart,
-  removeCartItem,
-  removeCoupon,
+  addCartItem,
   updateCartItem,
+  removeCartItem,
+  applyCoupon,
+  removeCoupon,
 } from './api'
-import type { Cart } from './types'
+import type { Cart, Nft, NftListParams } from './types'
+
+
+export interface NftListResponse {
+  items: Nft[]
+  total: number
+}
+
+export function useNfts(params: NftListParams) {
+  return useQuery<NftListResponse>({
+    queryKey: ['nfts', params],
+    queryFn: ({ signal }) => fetchNfts(params, signal),
+    staleTime: 30_000,
+  })
+}
 
 
 export const cartKeys = {
@@ -18,8 +33,6 @@ export const cartKeys = {
 }
 
 const currentCartKey = () => cartKeys.detail(getVisitorId())
-
- 
 const cartScope = { id: 'cart' }
 
 export function useCart() {
@@ -29,7 +42,6 @@ export function useCart() {
     staleTime: 15_000,
   })
 }
-
 
 export function useCartCount() {
   const { data } = useQuery({
@@ -49,7 +61,6 @@ export function useAddToCart() {
     onSuccess: (cart) => qc.setQueryData(currentCartKey(), cart),
   })
 }
-
 
 export function useUpdateCartItem() {
   const qc = useQueryClient()
@@ -82,7 +93,6 @@ export function useUpdateCartItem() {
       if (context?.previous) qc.setQueryData(key, context.previous)
       qc.invalidateQueries({ queryKey: key })
     },
-    
     onSuccess: (cart) => qc.setQueryData(currentCartKey(), cart),
   })
 }

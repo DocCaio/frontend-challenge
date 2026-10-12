@@ -1,5 +1,16 @@
 import { http } from '@/lib/http'
-import type { Cart } from './types'
+import type { Cart, NftListParams } from './types'
+import type { NftListResponse } from './hooks'
+
+
+export async function fetchNfts(params: NftListParams, signal?: AbortSignal): Promise<NftListResponse> {
+  const { data } = await http.get<NftListResponse>('/nfts', {
+    params,
+    signal,
+  })
+  return data
+}
+
 
 export async function fetchCart(signal?: AbortSignal): Promise<Cart> {
   const { data } = await http.get<Cart>('/cart', { signal })
